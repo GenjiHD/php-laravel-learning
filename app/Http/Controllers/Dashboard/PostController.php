@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 use App\Models\Post;
@@ -14,20 +15,22 @@ class PostController extends Controller
      */
     public function index()
     {
-       
-        $post = Post::create(
-            [
-                'title' => 'test title',
-                'slug' => 'test slug',
-                'content' => 'test content',
-                'category_id' => 1,
-                'description' => 'test description',
-                'posted' => 'not',
-                'image' => 'test image',
-            ]
-        );
 
-        dd($post);
+        $post = Post::find(1);
+        $category = Category::find(1);
+        // $post = Post::find(1)->delete();
+        dd($category->posts[0]->title);
+
+        // $post->update(
+        //     [
+        //         'title' => 'test title new',
+        //         'slug' => 'test slug',
+        //         'content' => 'test content',
+        //         'image' => 'test image',
+        //     ]
+        // );
+
+        // dd($post->title);
 
         //  Post::create(
         //     [
@@ -40,11 +43,11 @@ class PostController extends Controller
         //         'image' => 'test image',
         //     ]
         // );
-        
+
         return 'Index';
     }
 
-    
+
 
     /**
      * Show the form for creating a new resource.

@@ -3,6 +3,8 @@
 @section('content')
     <form action="" method="post">
 
+        @method('POST');
+
         <label for="">Title</label>
         <input type="text" name="title">
 
@@ -30,4 +32,4 @@
 
         <button type="submit">Send</button>
     </form>
-@
+@endsection

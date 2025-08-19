@@ -14,6 +14,8 @@
 
         @csrf
 
+        @method('POST');
+
         <label for="">Title</label>
         <input type="text" name="title">
 

@@ -1,7 +1,18 @@
 @extends('dashboard.master');
 
 @section('content')
-    <form action="" method="post">
+
+    @if ($errors->any)
+        @foreach ($erros->all() as $e)
+            <div>
+                {{ $e }}
+            </div>
+        @endforeach
+    @endif
+
+    <form action="{{ route('post.store') }}" method="post">
+
+        @csrf
 
         <label for="">Title</label>
         <input type="text" name="title">
@@ -30,4 +41,4 @@
 
         <button type="submit">Send</button>
     </form>
-@
+@endsection

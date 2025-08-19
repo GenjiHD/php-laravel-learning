@@ -2,13 +2,7 @@
 
 @section('content')
 
-    @if ($errors->any)
-        @foreach ($erros->all() as $e)
-            <div>
-                {{ $e }}
-            </div>
-        @endforeach
-    @endif
+    @include('dashboard.fragment.errors-form') 
 
     <form action="{{ route('post.store') }}" method="post">
 

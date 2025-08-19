@@ -136,7 +136,7 @@ class PostController extends Controller
      */
     public function update(StoreRequest $request, Post $post)
     {
-        $post->update($request->validate());
+        $post->update($request->validated());
         return to_route('post.index');
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\PutRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class PostController extends Controller
     public function index()
     {
 
-        $posts = Post::get(2);
+        $posts = Post::paginate(2);
         dd($posts);
         return view('dashboard/post/index', compact('posts'));
 
@@ -60,8 +61,9 @@ class PostController extends Controller
      */
     public function create()
     {
-
         $categories = Category::pluck('id', 'title');
+        $post = new Post();
+        dd($post);
 
         return view('dashboard.post.create', compact('categories'));
     }
@@ -75,22 +77,22 @@ class PostController extends Controller
         Post::create($request->validated());
         return to_route('post.index');
 
-    //    $validated = Validator::make($request->all(),
-    //         [
-    //             'title' => 'required|min:5|max:500',
-    //             'slug' => 'required|min:5|max:500',
-    //             'content' => 'required|min:7',
-    //             'category_id' => 'required|integer',
-    //             'description' => 'required|min:7',
-    //             'posted' => 'required',
-    //         ]
-    //     );
+        //    $validated = Validator::make($request->all(),
+        //         [
+        //             'title' => 'required|min:5|max:500',
+        //             'slug' => 'required|min:5|max:500',
+        //             'content' => 'required|min:7',
+        //             'category_id' => 'required|integer',
+        //             'description' => 'required|min:7',
+        //             'posted' => 'required',
+        //         ]
+        //     );
 
         // dd($validated);
 
         // $request->validate([
         //     'title' => 'required|min:5|min:500',
-        //     'slug' => 'required|min:5|min:500', 
+        //     'slug' => 'required|min:5|min:500',
         //     'content' => 'required|min:7',
         //     'category_id' => 'required|integer',
         //     'description' => 'required|min:7',
@@ -119,7 +121,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('dashboard/post/show', ['post' => $post]);
     }
 
     /**
@@ -134,7 +136,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreRequest $request, Post $post)
+    public function update(PutRequest $request, Post $post)
     {
         $post->update($request->validated());
         return to_route('post.index');
@@ -145,6 +147,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return to_route('post.index');
     }
 }
